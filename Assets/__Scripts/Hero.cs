@@ -14,6 +14,7 @@ public class Hero : MonoBehaviour {
     public GameObject projectilePrefab;
     public float projectileSpeed = 40;
     public Weapon[] weapons;
+    public bool Thorns = false;
 
     [Header("Set Dynamically")]
     [SerializeField]
@@ -67,6 +68,14 @@ public class Hero : MonoBehaviour {
         {
             fireDelegate();
         }
+
+        //If T is pressed, Thorns is set to true
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            Thorns = true;
+            Debug.Log("Thorns set to true");
+        }
+        
     }
 
     private void OnTriggerEnter(Collider other)
