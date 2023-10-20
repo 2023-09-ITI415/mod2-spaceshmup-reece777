@@ -96,8 +96,9 @@ public class Hero : MonoBehaviour {
 
         if (go.tag == "Enemy" && hasThorns)
         {
-            
             Debug.Log("thorns hit");
+            // Destroy this enemy
+            Destroy(go);
         }
 
         else if (go.tag == "Enemy")

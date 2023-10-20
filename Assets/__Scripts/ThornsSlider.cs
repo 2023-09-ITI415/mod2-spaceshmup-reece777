@@ -7,7 +7,7 @@ public class ThornsSlider : MonoBehaviour
 {
     public bool HasThorns = false;
     public Slider countdownSlider;
-    private float countdownDuration = 10.0f;
+    private float countdownDuration = 5.0f;
     public Text ThornsReady;
     public Text ThornsNotReady;
 
@@ -30,26 +30,26 @@ public class ThornsSlider : MonoBehaviour
         //asynchronously over multiple frames.
 
         float elapsedTime = 0f;
-        while(elapsedTime < 10.0f)
+        while(elapsedTime < 5.0f)
         {
-            countdownSlider.value = Mathf.Lerp(0, 10, elapsedTime / 10);
+            countdownSlider.value = Mathf.Lerp(0, 5, elapsedTime / 5);
             elapsedTime += Time.deltaTime;
             yield return null;
         }
-        countdownSlider.value = 10;
+        countdownSlider.value = 5;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (countdownSlider.value == 10)
+        if (countdownSlider.value == 5)
         {
             //when slider is full, indicates to player that thorns is ready
             ThornsReady.gameObject.SetActive(true);
             ThornsNotReady.gameObject.SetActive(false);
         }
 
-        if (countdownSlider.value == 10 && Input.GetKeyDown(KeyCode.T))
+        if (countdownSlider.value == 5 && Input.GetKeyDown(KeyCode.T))
         {
             //if bar is full and player presses T, thorns is activated and slider 
             //begins depleting
@@ -75,7 +75,7 @@ public class ThornsSlider : MonoBehaviour
         }
     }
 
-    //coroutine that smoothly decreases slider to 0 over 10 seconds
+    //coroutine that smoothly decreases slider to 0 over 5 seconds
     IEnumerator DecreaseSliderOverTime()
     {
         float elapsedTime = 0f;
@@ -83,7 +83,7 @@ public class ThornsSlider : MonoBehaviour
         while(elapsedTime < countdownDuration)
         {
             float normalizedTime = elapsedTime / countdownDuration;
-            countdownSlider.value = Mathf.Lerp(10, 0, normalizedTime);
+            countdownSlider.value = Mathf.Lerp(5, 0, normalizedTime);
             elapsedTime += Time.deltaTime;
             yield return null;
         }
