@@ -13,14 +13,32 @@ public class Thorns : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        countdownTime -= Time.deltaTime;
+        //gradually fills the slider
+        countdownSlider.value = Mathf.Lerp(10, 0, countdownTime / 10);
     }
 
     // Update is called once per frame
     void Update()
     {
         //If T is pressed, Thorns is set to true
-        if (Input.GetKeyDown(KeyCode.T))
+        
+
+       
+           
+
+            //timer ends after 10 seconds
+            if(countdownTime <= 0.5f)
+            {
+                countdownStarted = false;
+                HasThorns = false;
+
+                Debug.Log("Thorns is finished");
+            }
+
+        
+
+        else if (Input.GetKeyDown(KeyCode.T) && HasThorns == false)
         {
             HasThorns = true;
             Debug.Log("Thorns set to true");
@@ -30,21 +48,5 @@ public class Thorns : MonoBehaviour
             countdownStarted = true;
             countdownTime = 10.0f;
         }
-
-        if (countdownStarted)
-        {
-            countdownTime -= Time.deltaTime;
-            countdownSlider.value = countdownTime;
-
-            //timer ends after 10 seconds
-            if(countdownTime <= 0)
-            {
-                countdownStarted = false;
-
-                Debug.Log("Thorns is finished");
-            }
-
-        }
-
     }
 }
