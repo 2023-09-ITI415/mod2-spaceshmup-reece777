@@ -96,8 +96,7 @@ public class Hero : MonoBehaviour {
 
         if (go.tag == "Enemy" && hasThorns)
         {
-            shieldLevel--;
-            Destroy(go);
+            
             Debug.Log("thorns hit");
         }
 
