@@ -179,6 +179,7 @@ MonoBehaviour:
   countdownSlider: {fileID: 66362792}
   ThornsReady: {fileID: 926487468}
   ThornsNotReady: {fileID: 1880032322}
+  shield: {fileID: 2116799371}
 --- !u!114 &66362792
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -224,7 +225,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1262587460}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 10
+  m_MaxValue: 5
   m_WholeNumbers: 0
   m_Value: 0
   m_OnValueChanged:

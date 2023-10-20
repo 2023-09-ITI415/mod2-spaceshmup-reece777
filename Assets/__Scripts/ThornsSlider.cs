@@ -10,10 +10,14 @@ public class ThornsSlider : MonoBehaviour
     private float countdownDuration = 5.0f;
     public Text ThornsReady;
     public Text ThornsNotReady;
+    public GameObject shield;
+    private Color originalShieldColor;
 
     // Start is called before the first frame update
     void Start()
     {
+
+        originalShieldColor = shield.GetComponent<Renderer>().material.color;
         //begins filling slider
         countdownSlider.value = 0;
         StartCoroutine (FillSliderOverTime());
@@ -73,6 +77,22 @@ public class ThornsSlider : MonoBehaviour
             ThornsReady.gameObject.SetActive(false);
             ThornsNotReady.gameObject.SetActive(true);
         }
+
+        //sets shield color to blue if thorns is active
+
+        if (HasThorns)
+        {
+            Renderer rend = shield.GetComponent<Renderer>();
+            rend.material.color = Color.blue;
+        }
+
+        //reverts back to green after thorns is over
+        else if (shield != null)
+        {
+            Renderer rend = shield.GetComponent<Renderer>();
+            rend.material.color = originalShieldColor;
+        }
+
     }
 
     //coroutine that smoothly decreases slider to 0 over 5 seconds
