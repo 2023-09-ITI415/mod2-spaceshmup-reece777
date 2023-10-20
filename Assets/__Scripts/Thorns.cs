@@ -7,46 +7,55 @@ public class Thorns : MonoBehaviour
 {
     public bool HasThorns = false;
     public Slider countdownSlider;
-    private float countdownTime = 10.0f;
-    private bool countdownStarted = false;
+    private float countdownDuration = 10.0f;
 
     // Start is called before the first frame update
     void Start()
     {
-        countdownTime -= Time.deltaTime;
-        //gradually fills the slider
-        countdownSlider.value = Mathf.Lerp(10, 0, countdownTime / 10);
+        countdownSlider.value = 0;
+        StartCoroutine (FillSliderOverTime());
+    }
+
+    IEnumerator FillSliderOverTime()
+    {
+        float elapsedTime = 0f;
+        while(elapsedTime < 10.0f)
+        {
+            countdownSlider.value = Mathf.Lerp(0, 10, elapsedTime / 10);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        countdownSlider.value = 10;
     }
 
     // Update is called once per frame
     void Update()
     {
-        //If T is pressed, Thorns is set to true
-        
-
-       
-           
-
-            //timer ends after 10 seconds
-            if(countdownTime <= 0.5f)
-            {
-                countdownStarted = false;
-                HasThorns = false;
-
-                Debug.Log("Thorns is finished");
-            }
-
-        
-
-        else if (Input.GetKeyDown(KeyCode.T) && HasThorns == false)
+        if(countdownSlider.value == 10 && Input.GetKeyDown(KeyCode.T))
         {
+            Debug.Log("Thorns is Active");
             HasThorns = true;
-            Debug.Log("Thorns set to true");
+            StartCoroutine(DecreaseSliderOverTime());
+        }
 
-            //begins timer
+        if(countdownSlider.value <= 0.01f)
+        {
+            HasThorns = false;
+            Debug.Log("Thorns is Inactive");
+            StartCoroutine(FillSliderOverTime());
+        }
+    }
 
-            countdownStarted = true;
-            countdownTime = 10.0f;
+    IEnumerator DecreaseSliderOverTime()
+    {
+        float elapsedTime = 0f;
+
+        while(elapsedTime < countdownDuration)
+        {
+            float normalizedTime = elapsedTime / countdownDuration;
+            countdownSlider.value = Mathf.Lerp(10, 0, normalizedTime);
+            elapsedTime += Time.deltaTime;
+            yield return null;
         }
     }
 }

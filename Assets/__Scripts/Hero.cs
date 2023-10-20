@@ -68,13 +68,6 @@ public class Hero : MonoBehaviour {
         {
             fireDelegate();
         }
-
-        //If T is pressed, Thorns is set to true
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            Thorns = true;
-            Debug.Log("Thorns set to true");
-        }
         
     }
 
