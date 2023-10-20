@@ -14,7 +14,8 @@ public class Hero : MonoBehaviour {
     public GameObject projectilePrefab;
     public float projectileSpeed = 40;
     public Weapon[] weapons;
-    public bool Thorns = false;
+    //reference to ThornsSlider
+    public ThornsSlider thornsSlider;
 
     [Header("Set Dynamically")]
     [SerializeField]
@@ -30,6 +31,9 @@ public class Hero : MonoBehaviour {
 
 	void Start()
     {
+        //initialize the reference to the thornslider script
+        thornsSlider = FindObjectOfType<ThornsSlider>();
+
         if (S == null)
         {
             S = this; // Set the Singleton
@@ -48,6 +52,9 @@ public class Hero : MonoBehaviour {
 	// Update is called once per frame
 	void Update()
     {
+
+       
+
         // Pull in information from the Input class
         float xAxis = Input.GetAxis("Horizontal");
         float yAxis = Input.GetAxis("Vertical");
@@ -84,11 +91,23 @@ public class Hero : MonoBehaviour {
         }
         lastTriggerGo = go;
 
-        if(go.tag == "Enemy")
+        //Access HasTHorns boolean from Thornslider script
+        bool hasThorns = thornsSlider.HasThorns;
+
+        if (go.tag == "Enemy" && hasThorns)
         {
             shieldLevel--;
             Destroy(go);
+            Debug.Log("thorns hit");
         }
+
+        else if (go.tag == "Enemy")
+        {
+            shieldLevel--;
+            Destroy(go);
+            Debug.Log("normal hit");
+        }
+
         else if (go.tag == "PowerUp")
         {
             // If the shield was triggered by a PowerUp
